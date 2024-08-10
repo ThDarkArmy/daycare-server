@@ -17,16 +17,14 @@ public class MailSenderService {
         this.javaMailSender = javaMailSender;
     }
 
-    public void send(User user, String mailBodyString) throws MessagingException {
+    public void send(User user, String mailBody) throws MessagingException {
 
         MimeMessageHelper mimeMessageHelper = new MimeMessageHelper(javaMailSender.createMimeMessage(), true);
         mimeMessageHelper.setFrom("tset4598t@gmail.com");
         mimeMessageHelper.setTo(user.getEmail());
         mimeMessageHelper.setSubject("verify Otp");
 
-        mimeMessageHelper.setText("Hi "+user.getName());
-
-        String mailBody = "<h3>Hi "+user.getName()+",</h3><br/>"+"<h3>Otp to verify "+mailBodyString+"</h3>";
+//        mimeMessageHelper.setText("Hi "+user.getName());
 
         mimeMessageHelper.setText(mailBody, true);
         javaMailSender.send(mimeMessageHelper.getMimeMessage());

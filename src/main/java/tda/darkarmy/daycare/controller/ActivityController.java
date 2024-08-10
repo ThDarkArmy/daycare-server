@@ -25,9 +25,9 @@ public class ActivityController {
         return status(200).body(activityService.getById(id));
     }
 
-    @PostMapping
-    public ResponseEntity<?> add(@RequestBody Activity activity){
-        return status(200).body(activityService.add(activity));
+    @PostMapping("/{id}")
+    public ResponseEntity<?> add(@PathVariable Long id, @RequestBody Activity activity){
+        return status(200).body(activityService.add(id, activity));
     }
 
     @PutMapping("/{id}")

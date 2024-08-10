@@ -1,8 +1,12 @@
 package tda.darkarmy.daycare.model;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.persistence.*;
+
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
@@ -21,9 +25,13 @@ public class User {
         private Boolean isVerified;
         private Long otp;
 
-//        @JsonIgnore
-//        @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-//        private Set<Kid> kids = new HashSet<>();
+        @JsonIgnore
+        @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+        private Set<Kid> kids = new HashSet<>();
+
+        @OneToOne(cascade = CascadeType.ALL)
+        @JoinColumn(name = "daycare_id", referencedColumnName = "id")
+        private DayCare dayCare;
 
         public User() {
         }
@@ -36,6 +44,22 @@ public class User {
                 this.password = password;
                 this.role = role;
                 this.address = address;
+        }
+
+        public Set<Kid> getKids() {
+                return kids;
+        }
+
+        public void setKids(Set<Kid> kids) {
+                this.kids = kids;
+        }
+
+        public DayCare getDayCare() {
+                return dayCare;
+        }
+
+        public void setDayCare(DayCare dayCare) {
+                this.dayCare = dayCare;
         }
 
         public String getNewPassword() {

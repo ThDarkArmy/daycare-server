@@ -25,6 +25,11 @@ public class Kid {
     @OneToMany(mappedBy = "kid", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Set<FeePayment> feePayments = new HashSet<>();
 
+    @JsonIgnore
+    @ManyToOne
+    @JoinColumn(name = "daycare_id")
+    private DayCare dayCare;
+
     public Kid() {
     }
 
@@ -101,6 +106,14 @@ public class Kid {
 
     public void setFeePayments(Set<FeePayment> feePayments) {
         this.feePayments = feePayments;
+    }
+
+    public DayCare getDayCare() {
+        return dayCare;
+    }
+
+    public void setDayCare(DayCare dayCare) {
+        this.dayCare = dayCare;
     }
 
     @Override

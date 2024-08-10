@@ -4,7 +4,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import tda.darkarmy.daycare.exception.ResourceNotFoundException;
 import tda.darkarmy.daycare.model.Activity;
+import tda.darkarmy.daycare.model.DayCare;
 import tda.darkarmy.daycare.repository.ActivityRepository;
+import tda.darkarmy.daycare.repository.DayCareRepository;
 
 import java.util.List;
 
@@ -12,6 +14,8 @@ import java.util.List;
 public class ActivityService {
     @Autowired
     private ActivityRepository activityRepository;
+    @Autowired
+    private DayCareRepository dayCareRepository;
 
     public List<Activity> getAll(){
         return activityRepository.findAll();
@@ -21,7 +25,9 @@ public class ActivityService {
         return activityRepository.findById(id).orElseThrow(()-> new ResourceNotFoundException("Activity not found"));
     }
 
-    public Activity add(Activity activity){
+    public Activity add(Long dayCareId, Activity activity){
+        DayCare dayCare = dayCareRepository.findById(dayCareId).orElseThrow(()-> new ResourceNotFoundException("DayCare not found"));
+        activity.setDayCare(dayCare);
         return activityRepository.save(activity);
     }
 

@@ -25,9 +25,9 @@ public class KidController {
         return status(200).body(kidService.getMyKids());
     }
 
-    @PostMapping
-    public ResponseEntity<?> add(@RequestBody Kid kid){
-        return status(200).body(kidService.add(kid));
+    @PostMapping("/{id}")
+    public ResponseEntity<?> add(@PathVariable Long id, @RequestBody Kid kid){
+        return status(200).body(kidService.add(id, kid));
     }
 
     @PutMapping("/{id}")

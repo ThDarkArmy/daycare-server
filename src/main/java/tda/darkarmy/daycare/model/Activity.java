@@ -1,9 +1,7 @@
 package tda.darkarmy.daycare.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import jakarta.persistence.*;
 
 @Entity
 public class Activity {
@@ -13,6 +11,11 @@ public class Activity {
     private String title;
     private String description;
     private String time;
+
+    @JsonIgnore
+    @ManyToOne
+    @JoinColumn(name = "daycare_id")
+    private DayCare dayCare;
 
     public Activity() {
     }
@@ -56,6 +59,13 @@ public class Activity {
         this.time = time;
     }
 
+    public DayCare getDayCare() {
+        return dayCare;
+    }
+
+    public void setDayCare(DayCare dayCare) {
+        this.dayCare = dayCare;
+    }
 
     @Override
     public String toString() {

@@ -20,9 +20,14 @@ public class ReviewController {
         return status(200).body(reviewService.getAll());
     }
 
-    @PostMapping
-    public ResponseEntity<?> add(@RequestBody Review review){
-        return status(200).body(reviewService.add(review));
+    @GetMapping("/by-dayacre/{id}")
+    public ResponseEntity<?> getByDaycare(@PathVariable Long id){
+        return status(200).body(reviewService.getByDaycare(id));
+    }
+
+    @PostMapping("/{id}")
+    public ResponseEntity<?> add(@PathVariable Long id, @RequestBody Review review){
+        return status(200).body(reviewService.add(id, review));
     }
 
     @PutMapping("/{id}")
