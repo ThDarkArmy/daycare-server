@@ -79,14 +79,14 @@ public class DayCareService {
         dayCare.setContactNumber(dayCareDto.getContactNumber());
         dayCare.setUser(user);
         user.setDayCare(dayCare);
-        userRepository.save(user);
+        User user1 = userRepository.save(user);
         String mailBody = """
                 <h3>Dear Sir</h3><br>
                 <h3>Registration of a daycare successful, registration fee of ₹500 paid, Please find the details below.</h3>
                 <br>
                 """;
         mailSenderService.send(user, mailBody+dayCare.toString());
-        return dayCareRepository.save(dayCare);
+        return user1.getDayCare();
     }
 
     public String delete(Long id){
