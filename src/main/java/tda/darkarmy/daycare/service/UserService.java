@@ -44,7 +44,7 @@ public class UserService {
     public User signup(UserDto userDto) throws MessagingException {
 
         User user = userRepository.findByEmail(userDto.getEmail());
-        if(user!=null && user.getVerified()) throw new UserAlreadyExistsException("User with given email already exists");
+        if(user!=null) throw new UserAlreadyExistsException("User with given email already exists");
 
         if(user!=null) userRepository.deleteById(user.getId());
 
