@@ -1,5 +1,6 @@
 package tda.darkarmy.daycare.controller;
 
+import jakarta.mail.MessagingException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -26,7 +27,7 @@ public class KidController {
     }
 
     @PostMapping("/{id}")
-    public ResponseEntity<?> add(@PathVariable Long id, @RequestBody Kid kid){
+    public ResponseEntity<?> add(@PathVariable Long id, @RequestBody Kid kid) throws MessagingException {
         return status(200).body(kidService.add(id, kid));
     }
 

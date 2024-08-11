@@ -82,7 +82,7 @@ public class DayCareService {
         userRepository.save(user);
         String mailBody = """
                 <h3>Dear Sir</h3><br>
-                <h3>Registration of a daycare successful, registration fee of 500 paid, Please find the details below.</h3>
+                <h3>Registration of a daycare successful, registration fee of ₹500 paid, Please find the details below.</h3>
                 <br>
                 """;
         mailSenderService.send(user, mailBody+dayCare.toString());

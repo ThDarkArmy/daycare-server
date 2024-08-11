@@ -22,7 +22,7 @@ public class MailSenderService {
         MimeMessageHelper mimeMessageHelper = new MimeMessageHelper(javaMailSender.createMimeMessage(), true);
         mimeMessageHelper.setFrom("tset4598t@gmail.com");
         mimeMessageHelper.setTo(user.getEmail());
-        mimeMessageHelper.setSubject("verify Otp");
+        mimeMessageHelper.setSubject("Registration Successful");
 
 //        mimeMessageHelper.setText("Hi "+user.getName());
 

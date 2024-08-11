@@ -1,5 +1,6 @@
 package tda.darkarmy.daycare.service;
 
+import jakarta.mail.MessagingException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import tda.darkarmy.daycare.exception.ResourceNotFoundException;
@@ -24,6 +25,9 @@ public class KidService {
     @Autowired
     private UserService userService;
 
+    @Autowired
+    private MailSenderService mailSenderService;
+
     public List<Kid> getAll(){
         return kidRepository.findAll();
     }
@@ -33,12 +37,19 @@ public class KidService {
         return kidRepository.findByUser(user);
     }
 
-    public Kid add(Long dayCareId, Kid kid){
+    public Kid add(Long dayCareId, Kid kid) throws MessagingException {
         User user = userService.getLoggedInUser();
         DayCare dayCare = dayCareRepository.findById(dayCareId).orElseThrow(()-> new ResourceNotFoundException("DayCare not found"));
         kid.setDayCare(dayCare);
         kid.setUser(user);
-        return kidRepository.save(kid);
+        Kid kid1 = kidRepository.save(kid);
+        String mailBody = """
+                <h3>Dear Sir</h3><br>
+                <h3>Admission of kid successful, Admission fee of ₹5000 including all the fees paid, Please find the kids details below.</h3>
+                <br>
+                """;
+        mailSenderService.send(user, mailBody+kid1.toString());
+        return kid1;
     }
 
     public Kid update(Long id, Kid kid){
