@@ -44,7 +44,7 @@ public class KidService {
         kid.setUser(user);
         Kid kid1 = kidRepository.save(kid);
         String mailBody = createTemplate(kid, dayCare);
-        mailSenderService.send(user, mailBody+kid1.toString());
+        mailSenderService.send(user, mailBody);
         return kid1;
     }
 
