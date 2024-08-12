@@ -190,7 +190,7 @@ public class KidService {
                                 </tr>
                                 <tr class="total">
                                     <td>Total Amount</td>
-                                    <td>90,000</td>
+                                    <td>9,000</td>
                                 </tr>
                             </table>
                      """
