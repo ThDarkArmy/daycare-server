@@ -14,6 +14,7 @@ public class DayCare {
     private String city;
     private String fullAddress;
     @Lob
+    @Column(columnDefinition = "LONGTEXT")
     private String aboutUs;
     private String contactNumber;
     private Integer lowerAgeLimit;

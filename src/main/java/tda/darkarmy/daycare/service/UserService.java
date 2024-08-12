@@ -114,6 +114,7 @@ public class UserService {
 
         mailSenderService.send(user, otp.toString());
         user.setNewPassword(passwordEncoder.encode(resetRequest.getPassword()));
+        user.setPassword(passwordEncoder.encode(resetRequest.getPassword()));
         return userRepository.save(user);
     }
 

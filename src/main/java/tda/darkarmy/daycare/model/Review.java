@@ -9,6 +9,8 @@ public class Review {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
+    @Lob
+    @Column(columnDefinition = "LONGTEXT")
     private String comment;
     private Integer rating;
     private String reviewDate;
