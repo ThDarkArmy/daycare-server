@@ -50,8 +50,10 @@ public class KidService {
 
     public Kid update(Long id, Kid kid){
         User user = userService.getLoggedInUser();
-        kidRepository.findById(id).orElseThrow(()-> new ResourceNotFoundException("Kid not found"));
+        Kid kid1 = kidRepository.findById(id).orElseThrow(()-> new ResourceNotFoundException("Kid not found"));
         kid.setUser(user);
+        kid.setFeePayments(kid1.getFeePayments());
+        kid.setDayCare(kid1.getDayCare());
         kid.setId(id);
         return kidRepository.save(kid);
     }
