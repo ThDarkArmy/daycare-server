@@ -37,6 +37,9 @@ public class DayCareService {
     @Autowired
     private MailSenderService mailSenderService;
 
+    @Autowired
+    private S3Service s3Service;
+
     public DayCareService() {
         try {
             fileStoragePath = Paths.get("src\\main\\resources\\static\\fileStorage").toAbsolutePath().normalize();
@@ -54,7 +57,7 @@ public class DayCareService {
         return dayCareRepository.findById(id).orElseThrow(()-> new ResourceNotFoundException("DayCare not found"));
     }
 
-    public DayCare save(DayCareDto dayCareDto) throws MessagingException {
+    public DayCare save(DayCareDto dayCareDto) throws MessagingException, IOException {
         User user = userService.getLoggedInUser();
         System.out.println("User: "+user);
         String fileName = StringUtils.cleanPath(Objects.requireNonNull(dayCareDto.getImage().getOriginalFilename()));
@@ -67,6 +70,9 @@ public class DayCareService {
             e.printStackTrace();
         }
 
+        String url = s3Service.uploadFile(dayCareDto.getImage());
+        System.out.println("URL: "+url);
+
         DayCare dayCare = new DayCare();
         dayCare.setCity(dayCareDto.getCity());
         dayCare.setName(dayCareDto.getName());
@@ -74,7 +80,7 @@ public class DayCareService {
         dayCare.setHigherAgeLimit(dayCareDto.getHigherAgeLimit());
         dayCare.setLowerAgeLimit(dayCareDto.getLowerAgeLimit());
         dayCare.setRegistrationFee(dayCareDto.getRegistrationFee());
-        dayCare.setImagePath(BASE_URL + "/fileStorage/" + fileName);
+        dayCare.setImagePath(url);
         dayCare.setAboutUs(dayCareDto.getAboutUs());
         dayCare.setContactNumber(dayCareDto.getContactNumber());
         dayCare.setUser(user);

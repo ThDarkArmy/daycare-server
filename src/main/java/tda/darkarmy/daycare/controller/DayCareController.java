@@ -7,6 +7,8 @@ import org.springframework.web.bind.annotation.*;
 import tda.darkarmy.daycare.dto.DayCareDto;
 import tda.darkarmy.daycare.service.DayCareService;
 
+import java.io.IOException;
+
 import static org.springframework.http.ResponseEntity.status;
 
 @RestController
@@ -32,7 +34,7 @@ public class DayCareController {
     }
 
     @PostMapping
-    public ResponseEntity<?> save(@ModelAttribute DayCareDto dayCareDto) throws MessagingException {
+    public ResponseEntity<?> save(@ModelAttribute DayCareDto dayCareDto) throws MessagingException, IOException {
         return status(200).body(dayCareService.save(dayCareDto));
     }
     @DeleteMapping("/{id}")
